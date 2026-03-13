@@ -471,37 +471,26 @@ z-index: 0;
     </footer>
 
     <script>
-        /* --- Form Submission Logic to Tally --- */
-        document.getElementById('eunoiva-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const form = e.target;
-            const btn = document.getElementById('submit-btn');
-            const originalText = btn.innerHTML;
-            
-            btn.innerHTML = '<iconify-icon icon="solar:clock-circle-linear" class="animate-spin"></iconify-icon> Sending...';
-            btn.disabled = true;
+        /* --- Google Form Submission Handler --- */
 
-            const formData = new FormData(form);
+const form = document.getElementById("eunoiva-form");
+const successMessage = document.getElementById("form-success");
 
-            try {
-                // Submit to Tally in the background
-                await fetch('https://tally.so/r/D4VAy5', {
-                    method: 'POST',
-                    body: formData,
-                    mode: 'no-cors' // Required to prevent CORS errors since we are sending opaque POST
-                });
-                
-                // Hide form and show success
-                form.style.display = 'none';
-                document.getElementById('form-success').classList.remove('hidden');
-                
-            } catch (error) {
-                console.error('Submission error:', error);
-                btn.innerHTML = 'Error. Try Again';
-                btn.disabled = false;
-                setTimeout(() => { btn.innerHTML = originalText; }, 3000);
-            }
-        });
+form.addEventListener("submit", function () {
+
+    const btn = document.getElementById("submit-btn");
+
+    btn.innerHTML = '<iconify-icon icon="solar:clock-circle-linear" class="animate-spin"></iconify-icon> Sending...';
+    btn.disabled = true;
+
+    setTimeout(function () {
+
+        form.style.display = "none";
+        successMessage.classList.remove("hidden");
+
+    }, 1200);
+
+});
 
         /* --- AI Text Reveal Engine --- */
         document.addEventListener('DOMContentLoaded', () => {
